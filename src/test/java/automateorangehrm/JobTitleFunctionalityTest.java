@@ -13,27 +13,7 @@ public class JobTitleFunctionalityTest extends supportBrowser {
 	private LoginPage login;
 	private JobPage job;
 	
-//	@Test(priority = 1)
-//	public void testSearchFunctionality() throws IOException {
-//		
-//        login=getLogin(); 
-//        login.setUsername("Admin");
-//        login.setPassword("admin123");
-//        login.clickLoginButton();
-//        login.isLoginSuccessful();
-//        login.clickAdminButton();
-//        login.isAdminPage();
-//        job = getJob();
-//        job.clickJobButton(); 
-//        job.clickJobTitleButton();
-//        job.isJobPage(); 
-//        
-//		
-//	}
-	
-	
-	
-	@Test
+	@Test(priority = 1)
     public void testAddFunctionality() throws InterruptedException, IOException {
         login=getLogin(); 
         login.setUsername("Admin");
@@ -55,6 +35,46 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         Thread.sleep(5000);
         
     }
+	
+	@Test(priority = 2)
+	public void testEditFunctionality() throws IOException {
+		
+        login=getLogin(); 
+        login.setUsername("Admin");
+        login.setPassword("admin123");
+        login.clickLoginButton();
+        login.isLoginSuccessful();
+        login.clickAdminButton();
+        login.isAdminPage();
+        job = getJob();
+        job.clickJobButton(); 
+        job.clickJobTitleButton();
+        job.isJobPage(); 
+        
+		
+	}
+	
+	
+	@Test(priority = 3)
+	public void testDeleteFunctionality() throws IOException {
+		
+        login=getLogin(); 
+        login.setUsername("Admin");
+        login.setPassword("admin123");
+        login.clickLoginButton();
+        login.isLoginSuccessful();
+        login.clickAdminButton();
+        login.isAdminPage();
+        job = getJob();
+        job.clickJobButton(); 
+        job.clickJobTitleButton();
+        job.isJobPage(); 
+        
+		
+	}
+	
+	
+	
 	
 
 

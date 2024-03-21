@@ -1,10 +1,12 @@
 package automateorangehrm.common.pages;
 
 import java.io.FileInputStream;
+import org.openqa.selenium.interactions.Actions;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
-
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,7 +18,7 @@ import org.testng.Assert;
 
 public class JobPage {
 	
-	private  WebDriver driver;
+	private static WebDriver driver;
 	private WebDriverWait wait;
 
     @FindBy(how = How.XPATH, using = "//span[normalize-space()='Job']//i[@class='oxd-icon bi-chevron-down']")
@@ -31,6 +33,8 @@ public class JobPage {
     @FindBy(how = How.XPATH, using = "(//input[@class='oxd-input oxd-input--active'])[2]") 
     private WebElement jobTitleElement;
     
+
+    
     @FindBy(how = How.XPATH, using = "//span[@class='oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message']")
     private WebElement alreadyExistsMessage;
     
@@ -40,11 +44,15 @@ public class JobPage {
     @FindBy(how = How.XPATH, using = "//div[@class='oxd-file-button']")
     private WebElement browseButtonField;
     
-    @FindBy(how = How.XPATH, using = "")
-    private WebElement addNoteField;
+    @FindBy(how = How.XPATH, using = "//button[normalize-space()='Yes, Delete']")
+    private WebElement confirmDelete;
+
+    @FindBy(how = How.XPATH, using = "//textarea[@placeholder='Add note']")
+    private WebElement noteElement;
     
     @FindBy(how = How.XPATH, using = "//button[@type='submit']")
     private WebElement saveButton;
+    
     
 
     
@@ -95,7 +103,7 @@ public class JobPage {
     }
     
     
-    public void doesAlreadyExists() {
+    public void errorIfExists() {
 		try {
 			String text = alreadyExistsMessage.getText();
 			if (text.equals("Already exists")) {
@@ -112,6 +120,95 @@ public class JobPage {
     	wait.until(ExpectedConditions.visibilityOf(saveButton));
         saveButton.click();
     }
+    
+    public static WebElement findExistenceByXPATH(String xpath) {
+    	return driver.findElement(By.xpath(xpath));
+    	
+    }
+
+	public boolean doesAlreadyExists(String job) {
+		try {
+			WebElement jobElement = findExistenceByXPATH("//div[contains(@class, 'oxd-table-row oxd-table-row--with-border')]/div[contains(@class, 'oxd-table-cell oxd-padding-cell')]/div[contains(text(), '"
+					+ job + "')]");
+			wait.until(ExpectedConditions.visibilityOf(jobElement));
+			return (jobElement != null);
+		}
+		catch (Exception e) {
+			System.out.println("Job Title Not Present");
+			return false ;
+		}
+	}
+	
+    public void clickButton(WebElement button) {
+    	wait.until(ExpectedConditions.visibilityOf(button));
+        button.click();
+    }
+    
+
+	
+	public void delete(String job) {
+		if(doesAlreadyExists(job)) {
+			
+			WebElement deleteButton = findExistenceByXPATH(
+					"//div[contains(@class, 'oxd-table-row--with-border')]/div[contains(@class, 'oxd-padding-cell')]/div[contains(text(), '"+job+"')]/../following-sibling::div//i[contains(@class, 'bi-trash')]");
+			clickButton(deleteButton);
+			clickButton(confirmDelete);
+			System.out.println("Job deleted Successfully");
+			
+		}
+		else {
+			System.out.println("Job Not Present");
+			
+		}
+	}
+
+	public void edit(String job) {
+		if(doesAlreadyExists(job)) {
+			
+			WebElement editButton = findExistenceByXPATH(
+					"//div[contains(@class, 'oxd-table-row--with-border')]/div[contains(@class, 'oxd-padding-cell')]/div[contains(text(), '"+job+"')]/../following-sibling::div//i[contains(@class, 'bi-pencil-fill')]");
+			clickButton(editButton);
+
+		}
+
+		
+	}
+	
+
+	public void editJobTitle(String jobTitleField) {
+		
+		 Actions actions = new Actions(driver);
+
+		 actions.moveToElement(jobTitleElement).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL)
+			.sendKeys(Keys.DELETE).sendKeys(jobTitleField).perform();
+		
+	}
+
+	public void editJobDesc(String jobDescField) {
+		
+		Actions actions = new Actions(driver);
+
+		 actions.moveToElement(jobDescElement).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL)
+			.sendKeys(Keys.DELETE).sendKeys(jobDescField).perform();
+
+		
+		
+	}
+
+	public void editSpecification(String string) {
+		
+		
+		
+	}
+
+	public void editNote(String noteField) {
+		
+		Actions actions = new Actions(driver);
+
+		 actions.moveToElement(noteElement).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL)
+			.sendKeys(Keys.DELETE).sendKeys(noteField).perform();
+	}
+
     
 }
 

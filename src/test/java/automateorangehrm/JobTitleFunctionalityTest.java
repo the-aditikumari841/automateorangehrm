@@ -15,7 +15,7 @@ public class JobTitleFunctionalityTest extends supportBrowser {
 	
 	@Test(priority = 1)
     public void testAddFunctionality() throws InterruptedException, IOException {
-        login=getLogin(); 
+		login=getLogin(); 
         login.setUsername("Admin");
         login.setPassword("admin123");
         login.clickLoginButton();
@@ -28,37 +28,44 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         job.isJobPage();    
         job.clickAddButton();
         Thread.sleep(5000);
-        job.enterJobTitle("Account Assistants");
+        job.enterJobTitle("Account Assistantss");
         Thread.sleep(3000);
-        job.doesAlreadyExists();
+        job.errorIfExists();
         job.clickSaveButton();
         Thread.sleep(5000);
         
     }
 	
 	@Test(priority = 2)
-	public void testEditFunctionality() throws IOException {
+	public void testDeleteFunctionality() throws InterruptedException, IOException {
 		
         login=getLogin(); 
         login.setUsername("Admin");
         login.setPassword("admin123");
         login.clickLoginButton();
         login.isLoginSuccessful();
+        //Thread.sleep(3000);
         login.clickAdminButton();
         login.isAdminPage();
+        //Thread.sleep(3000);
         job = getJob();
-        job.clickJobButton(); 
+        //Thread.sleep(3000);
+        job.clickJobButton();
+        //Thread.sleep(3000);
         job.clickJobTitleButton();
+        //Thread.sleep(3000);
         job.isJobPage(); 
-        
+        Thread.sleep(3000);
+        job.delete("Account Assistantss");
+        Thread.sleep(3000);
 		
 	}
 	
 	
 	@Test(priority = 3)
-	public void testDeleteFunctionality() throws IOException {
+	public void testEditFunctionality() throws IOException, InterruptedException {
 		
-        login=getLogin(); 
+		login=getLogin(); 
         login.setUsername("Admin");
         login.setPassword("admin123");
         login.clickLoginButton();
@@ -69,6 +76,17 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         job.clickJobButton(); 
         job.clickJobTitleButton();
         job.isJobPage(); 
+        Thread.sleep(3000);
+        job.edit("Account Assistantss");
+        Thread.sleep(3000);
+        job.editJobTitle("Account Assistant");
+        Thread.sleep(3000);
+        job.editJobDesc("Descriptionssssssssssssssss");
+        job.editNote("Note");
+        job.clickSaveButton();
+        Thread.sleep(3000);
+
+        
         
 		
 	}

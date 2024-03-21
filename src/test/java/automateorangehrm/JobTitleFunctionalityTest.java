@@ -36,7 +36,34 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         
     }
 	
+	
 	@Test(priority = 2)
+	public void testEditFunctionality() throws IOException, InterruptedException {
+		
+		login=getLogin(); 
+        login.setUsername("Admin");
+        login.setPassword("admin123");
+        login.clickLoginButton();
+        login.isLoginSuccessful();
+        login.clickAdminButton();
+        login.isAdminPage();
+        job = getJob();
+        job.clickJobButton(); 
+        job.clickJobTitleButton();
+        job.isJobPage(); 
+        Thread.sleep(3000);
+        job.edit("Account Assistantss");
+        Thread.sleep(3000);
+        job.editJobTitle("Account Assistantt");
+        Thread.sleep(3000);
+        job.editJobDesc("Descriptionssssssssssssssss");
+        job.editNote("Note");
+        job.clickSaveButton();
+        Thread.sleep(3000);
+	}
+	
+	
+	@Test(priority = 3)
 	public void testDeleteFunctionality() throws InterruptedException, IOException {
 		
         login=getLogin(); 
@@ -56,41 +83,12 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         //Thread.sleep(3000);
         job.isJobPage(); 
         Thread.sleep(3000);
-        job.delete("Account Assistantss");
+        job.delete("Account Assistantt");
         Thread.sleep(3000);
 		
 	}
 	
-	
-	@Test(priority = 3)
-	public void testEditFunctionality() throws IOException, InterruptedException {
-		
-		login=getLogin(); 
-        login.setUsername("Admin");
-        login.setPassword("admin123");
-        login.clickLoginButton();
-        login.isLoginSuccessful();
-        login.clickAdminButton();
-        login.isAdminPage();
-        job = getJob();
-        job.clickJobButton(); 
-        job.clickJobTitleButton();
-        job.isJobPage(); 
-        Thread.sleep(3000);
-        job.edit("Account Assistantss");
-        Thread.sleep(3000);
-        job.editJobTitle("Account Assistant");
-        Thread.sleep(3000);
-        job.editJobDesc("Descriptionssssssssssssssss");
-        job.editNote("Note");
-        job.clickSaveButton();
-        Thread.sleep(3000);
 
-        
-        
-		
-	}
-	
 	
 	
 	

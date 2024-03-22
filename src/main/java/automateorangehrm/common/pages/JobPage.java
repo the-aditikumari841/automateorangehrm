@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -33,8 +34,6 @@ public class JobPage {
     @FindBy(how = How.XPATH, using = "(//input[@class='oxd-input oxd-input--active'])[2]") 
     private WebElement jobTitleElement;
     
-
-    
     @FindBy(how = How.XPATH, using = "//span[@class='oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message']")
     private WebElement alreadyExistsMessage;
     
@@ -43,6 +42,12 @@ public class JobPage {
     
     @FindBy(how = How.XPATH, using = "//div[@class='oxd-file-button']")
     private WebElement browseButtonField;
+    
+    @FindBy(how = How.XPATH, using = "//label[normalize-space()='Delete Current']//span[@class='oxd-radio-input oxd-radio-input--active --label-right oxd-radio-input']")
+    private WebElement deleteFileOption;
+    
+    @FindBy(how = How.XPATH, using = "//label[normalize-space()='Replace Current']")
+    private WebElement replaceFileOption;
     
     @FindBy(how = How.XPATH, using = "//button[normalize-space()='Yes, Delete']")
     private WebElement confirmDelete;
@@ -53,14 +58,14 @@ public class JobPage {
     @FindBy(how = How.XPATH, using = "//button[@type='submit']")
     private WebElement saveButton;
     
-    @FindBy(how = How.CLASS_NAME, using = "oxd-file-button")
+    @FindBy(how = How.XPATH, using = "//input[@type='file']")
     private WebElement browse;
 
     
 	public JobPage(WebDriver driver) {
 		this.driver=driver;
 		this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
-		PageFactory.initElements(driver,this);
+		PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10),this);
 	}
 	
 	public void clickJobButton() {
@@ -108,7 +113,7 @@ public class JobPage {
 		try {
 			String text = alreadyExistsMessage.getText();
 			if (text.equals("Already exists")) {
-				Assert.fail("Already existed");
+				Assert.fail("Job already exists");
 
 			}
 		} catch (Exception e) {
@@ -200,8 +205,18 @@ public class JobPage {
 	}
 
 	public void uploadSpecification() throws InterruptedException {
-		wait.until(ExpectedConditions.visibilityOf(browse));
+//		wait.until(ExpectedConditions.elementToBeClickable(browse));
+		
 		browse.sendKeys("C:\\Users\\Aditi\\Pictures\\Screenshots\\OrangeHRM.png");	
+	}
+	
+	public void replaceSpecification() throws InterruptedException {
+		replaceFileOption.click();
+		browse.sendKeys("C:\\Users\\Aditi\\Pictures\\Screenshots\\OrangeHRM.png");
+	}
+	
+	public void deleteSpecification() throws InterruptedException {
+		deleteFileOption.click();
 	}
 
 	public void editNote(String noteField) {
@@ -211,6 +226,7 @@ public class JobPage {
 		 actions.moveToElement(noteElement).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL)
 			.sendKeys(Keys.DELETE).sendKeys(noteField).perform();
 	}
+
 
     
 }

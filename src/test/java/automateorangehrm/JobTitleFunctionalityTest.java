@@ -29,12 +29,13 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         job.clickAddButton();
         Thread.sleep(5000);
         job.enterJobTitle("Account Assistantssssssssssss");
-        job.editJobDesc("Descriptionssssssssssssssss");
-        Thread.sleep(3000);
-        //job.uploadSpecification();
-        job.editNote("Note");
         Thread.sleep(3000);
         job.errorIfExists();
+        job.editJobDesc("Descriptionssssssssssssssss");
+        Thread.sleep(3000);
+        job.uploadSpecification();
+        job.editNote("Note");
+        Thread.sleep(3000);        
         job.clickSaveButton();
         Thread.sleep(5000);
         
@@ -42,7 +43,7 @@ public class JobTitleFunctionalityTest extends supportBrowser {
 	
 	
 	@Test(priority = 2)
-	public void testEditFunctionality() throws IOException, InterruptedException {
+	public void testEditFunctionalityWithKeepingFile() throws IOException, InterruptedException {
 		
 		login=getLogin(); 
         login.setUsername("Admin");
@@ -56,7 +57,7 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         job.clickJobTitleButton();
         job.isJobPage(); 
         Thread.sleep(3000);
-        job.edit("Account Assistantss");
+        job.edit("Account Assistantssssssssssss");
         Thread.sleep(3000);
         job.editJobTitle("Account Assistantt");
         Thread.sleep(3000);
@@ -66,8 +67,53 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         Thread.sleep(3000);
 	}
 	
-	
 	@Test(priority = 3)
+	public void testEditFunctionalityToReplaceFile() throws IOException, InterruptedException {
+		
+		login=getLogin(); 
+        login.setUsername("Admin");
+        login.setPassword("admin123");
+        login.clickLoginButton();
+        login.isLoginSuccessful();
+        login.clickAdminButton();
+        login.isAdminPage();
+        job = getJob();
+        job.clickJobButton(); 
+        job.clickJobTitleButton();
+        job.isJobPage(); 
+        Thread.sleep(3000);
+        job.edit("Account Assistantt");
+        Thread.sleep(3000);
+        job.replaceSpecification();
+        job.editNote("Note");
+        job.clickSaveButton();
+        Thread.sleep(3000);
+	}
+	
+	@Test(priority = 4)
+	public void testEditFunctionalityToDeleteFile() throws IOException, InterruptedException {
+		
+		login=getLogin(); 
+        login.setUsername("Admin");
+        login.setPassword("admin123");
+        login.clickLoginButton();
+        login.isLoginSuccessful();
+        login.clickAdminButton();
+        login.isAdminPage();
+        job = getJob();
+        job.clickJobButton(); 
+        job.clickJobTitleButton();
+        job.isJobPage(); 
+        Thread.sleep(3000);
+        job.edit("Account Assistantt");
+        Thread.sleep(3000);
+        job.deleteSpecification();
+        Thread.sleep(3000);
+        job.clickSaveButton();
+        Thread.sleep(3000);
+	}
+	
+	@Test(priority = 5)
 	public void testDeleteFunctionality() throws InterruptedException, IOException {
 		
         login=getLogin(); 

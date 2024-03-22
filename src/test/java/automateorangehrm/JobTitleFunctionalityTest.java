@@ -28,7 +28,11 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         job.isJobPage();    
         job.clickAddButton();
         Thread.sleep(5000);
-        job.enterJobTitle("Account Assistantss");
+        job.enterJobTitle("Account Assistantssssssssssss");
+        job.editJobDesc("Descriptionssssssssssssssss");
+        Thread.sleep(3000);
+        //job.uploadSpecification();
+        job.editNote("Note");
         Thread.sleep(3000);
         job.errorIfExists();
         job.clickSaveButton();

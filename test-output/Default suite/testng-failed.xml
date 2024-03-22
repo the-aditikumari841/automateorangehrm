@@ -5,9 +5,9 @@
     <classes>
       <class name="automateorangehrm.JobTitleFunctionalityTest">
         <methods>
+          <include name="testAddFunctionality"/>
           <include name="closeBrowser"/>
           <include name="setUp"/>
-          <include name="testEditFunctionality"/>
         </methods>
       </class> <!-- automateorangehrm.JobTitleFunctionalityTest -->
     </classes>

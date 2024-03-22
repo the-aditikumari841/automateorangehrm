@@ -38,6 +38,12 @@ public class LoginPage {
 	
 	@FindBy(how = How.XPATH, using = "//p[@class='oxd-text oxd-text--p oxd-alert-content-text' and text()='Invalid credentials']")    
 	private WebElement invalidMessage;
+	
+	@FindBy(how = How.XPATH, using = "//p[@class='oxd-text oxd-text--p orangehrm-login-forgot-header']")
+	private WebElement forgotPassword;
+	
+	@FindBy(how = How.XPATH, using = "//button[@type='submit']")
+	private WebElement resetPasswordButton;
 
 	public LoginPage(WebDriver driver) {
 		this.driver=driver;
@@ -59,6 +65,11 @@ public class LoginPage {
         wait.until(ExpectedConditions.visibilityOf(loginButton));
         loginButton.click();
     }   
+    
+    public void clickForgotPasswordButton() {
+    	wait.until(ExpectedConditions.visibilityOf(forgotPassword));
+    	forgotPassword.click();
+    }
 
     public boolean isLoginSuccessful() throws IOException {
     	Properties properties = new Properties();
@@ -75,6 +86,12 @@ public class LoginPage {
         adminButton.click();
     }
 	
+	public void clickResetPasswordButton() {
+        wait.until(ExpectedConditions.visibilityOf(resetPasswordButton));
+        resetPasswordButton.click();
+    }
+
+	
 	public boolean isAdminPage() throws IOException 
 	{
 		Properties properties = new Properties();
@@ -83,7 +100,26 @@ public class LoginPage {
 		String browser = properties.getProperty("browser");
 		return driver.getCurrentUrl().equals("adminUrl");
 	}
-    
+	
+	public boolean 	isResetPasswordPage() throws IOException 
+	{
+		Properties properties = new Properties();
+		FileInputStream file = new FileInputStream("src/main/resources/config.properties");
+		properties.load(file);
+		String browser = properties.getProperty("browser");
+		return driver.getCurrentUrl().equals("resetUrl");
+	}
+	
+	public boolean 	isPasswordResetSuccessful() throws IOException 
+	{
+		Properties properties = new Properties();
+		FileInputStream file = new FileInputStream("src/main/resources/config.properties");
+		properties.load(file);
+		String browser = properties.getProperty("browser");
+		return driver.getCurrentUrl().equals("sentCodeUrl");
+	}
+	
+	
 
     
     public String getInvalidMessage() {

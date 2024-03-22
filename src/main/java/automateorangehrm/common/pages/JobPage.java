@@ -53,7 +53,8 @@ public class JobPage {
     @FindBy(how = How.XPATH, using = "//button[@type='submit']")
     private WebElement saveButton;
     
-    
+    @FindBy(how = How.XPATH, using = "//input[@class='oxd-file-input']")
+    private WebElement browse;
 
     
 	public JobPage(WebDriver driver) {
@@ -170,6 +171,9 @@ public class JobPage {
 			clickButton(editButton);
 
 		}
+		else { 
+			System.out.println("Job Not Present");
+		}
 
 		
 	}
@@ -195,10 +199,9 @@ public class JobPage {
 		
 	}
 
-	public void editSpecification(String string) {
-		
-		
-		
+	public void uploadSpecification() throws InterruptedException {
+		wait.until(ExpectedConditions.visibilityOf(browse));
+		browse.sendKeys("C:\\Users\\Aditi\\Pictures\\Screenshots\\OrangeHRM.png");	
 	}
 
 	public void editNote(String noteField) {

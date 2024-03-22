@@ -53,7 +53,7 @@ public class JobPage {
     @FindBy(how = How.XPATH, using = "//button[@type='submit']")
     private WebElement saveButton;
     
-    @FindBy(how = How.XPATH, using = "//input[@class='oxd-file-input']")
+    @FindBy(how = How.CLASS_NAME, using = "oxd-file-button")
     private WebElement browse;
 
     

@@ -92,17 +92,5 @@ public class JobTitleFunctionalityTest extends supportBrowser {
 		
 	}
 	
-
-	
-	
-	
-
-
 }
-
-
-
-
-
-
 

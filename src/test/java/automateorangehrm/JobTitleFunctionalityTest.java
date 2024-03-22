@@ -121,16 +121,11 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         login.setPassword("admin123");
         login.clickLoginButton();
         login.isLoginSuccessful();
-        //Thread.sleep(3000);
         login.clickAdminButton();
         login.isAdminPage();
-        //Thread.sleep(3000);
         job = getJob();
-        //Thread.sleep(3000);
         job.clickJobButton();
-        //Thread.sleep(3000);
         job.clickJobTitleButton();
-        //Thread.sleep(3000);
         job.isJobPage(); 
         Thread.sleep(3000);
         job.delete("Account Assistantt");

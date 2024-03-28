@@ -60,6 +60,11 @@ public class JobPage {
     
     @FindBy(how = How.XPATH, using = "//input[@type='file']")
     private WebElement browse;
+    
+    @FindBy(how = How.XPATH, using = "//div[@class='oxd-toast-container oxd-toast-container--bottom']")
+    private WebElement toast;
+    
+//    class="oxd-toast-container oxd-toast-container--bottom"
 
     
 	public JobPage(WebDriver driver) {
@@ -125,6 +130,12 @@ public class JobPage {
     public void clickSaveButton() {
     	wait.until(ExpectedConditions.visibilityOf(saveButton));
         saveButton.click();
+        try {
+            wait.until(ExpectedConditions.visibilityOf(toast));
+            System.out.println("Toast message present");
+        } catch (Exception e) {
+        	System.out.println("Toast message not present");
+        }
     }
     
     public static WebElement findExistenceByXPATH(String xpath) {
@@ -159,8 +170,12 @@ public class JobPage {
 					"//div[contains(@class, 'oxd-table-row--with-border')]/div[contains(@class, 'oxd-padding-cell')]/div[contains(text(), '"+job+"')]/../following-sibling::div//i[contains(@class, 'bi-trash')]");
 			clickButton(deleteButton);
 			clickButton(confirmDelete);
-			System.out.println("Job deleted Successfully");
-			
+			try {
+	            wait.until(ExpectedConditions.visibilityOf(toast));
+	            System.out.println("Toast message present");
+	        } catch (Exception e) {
+	        	System.out.println("Toast message not present");
+	        }
 		}
 		else {
 			System.out.println("Job Not Present");
@@ -227,11 +242,47 @@ public class JobPage {
 			.sendKeys(Keys.DELETE).sendKeys(noteField).perform();
 	}
 
+	public boolean checkAdded(String job) throws InterruptedException {
+		
+		driver.get(driver.getCurrentUrl());
+		Thread.sleep(5000);
+		try {
+			WebElement jobElement = findExistenceByXPATH("//div[contains(@class, 'oxd-table-row oxd-table-row--with-border')]/div[contains(@class, 'oxd-table-cell oxd-padding-cell')]/div[contains(text(), '"
+					+ job + "')]");
+			wait.until(ExpectedConditions.visibilityOf(jobElement));
+			return (jobElement != null);
+		}
+		catch (Exception e) {
+			System.out.println("Job Title Not Present");
+			return false ;
+		}
+	
+	}
+
+	public boolean checkDeleted(String job) throws InterruptedException {
+		driver.get(driver.getCurrentUrl());
+		Thread.sleep(5000);
+		try {
+			WebElement jobElement = findExistenceByXPATH("//div[contains(@class, 'oxd-table-row oxd-table-row--with-border')]/div[contains(@class, 'oxd-table-cell oxd-padding-cell')]/div[contains(text(), '"
+					+ job + "')]");
+			wait.until(ExpectedConditions.visibilityOf(jobElement));
+			return (!(jobElement != null));
+		}
+		catch (Exception e) {
+			return true;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 
     
 }
-
-
-
-
-

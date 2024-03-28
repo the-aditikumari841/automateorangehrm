@@ -28,7 +28,7 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         job.isJobPage();    
         job.clickAddButton();
         Thread.sleep(5000);
-        job.enterJobTitle("Account Assistantssssssssssss");
+        job.enterJobTitle("Account Assistantsssss");
         Thread.sleep(3000);
         job.errorIfExists();
         job.editJobDesc("Descriptionssssssssssssssss");
@@ -38,8 +38,17 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         Thread.sleep(3000);        
         job.clickSaveButton();
         Thread.sleep(5000);
+        boolean ans = job.checkAdded("Account Assistantsssss");
+        if(ans) {
+        	System.out.println("Job added successfully");
+        }
+        else {
+        	System.out.println("Job Not added");
+        }
         
     }
+	
+	//wait.until(ExpectedConditions.presenceOfElementLoacatedBy(findBy));  
 	
 	
 	@Test(priority = 2)
@@ -57,14 +66,14 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         job.clickJobTitleButton();
         job.isJobPage(); 
         Thread.sleep(3000);
-        job.edit("Account Assistantssssssssssss");
+        job.edit("Account Assistantsssss");
         Thread.sleep(3000);
         job.editJobTitle("Account Assistantt");
         Thread.sleep(3000);
         job.editJobDesc("Descriptionssssssssssssssss");
         job.editNote("Note");
         job.clickSaveButton();
-        Thread.sleep(3000);
+        System.out.println("Job Edited Successfully");
 	}
 	
 	@Test(priority = 3)
@@ -87,7 +96,7 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         job.replaceSpecification();
         job.editNote("Note");
         job.clickSaveButton();
-        Thread.sleep(3000);
+        System.out.println("Job Edited Successfully");
 	}
 	
 	@Test(priority = 4)
@@ -111,6 +120,7 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         Thread.sleep(3000);
         job.clickSaveButton();
         Thread.sleep(3000);
+        System.out.println("Job Edited Successfully");
 	}
 	
 	@Test(priority = 5)
@@ -130,8 +140,28 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         Thread.sleep(3000);
         job.delete("Account Assistantt");
         Thread.sleep(3000);
+        boolean ans = job.checkDeleted("Account Assistantsssss");
+        if(ans) {
+        	System.out.println("Job Title Deleted Successfully");
+        }
+        else {
+        	System.out.println("Job Title not Deleted");
+        }
 		
 	}
 	
 }
+
+
+
+
+
+
+
+
+//wait.until(ExpectedConditions.presenceOfElementLoacatedBy(findBy));    
+
+
+
+
 

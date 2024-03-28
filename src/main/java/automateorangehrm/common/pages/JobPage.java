@@ -64,9 +64,6 @@ public class JobPage {
     @FindBy(how = How.XPATH, using = "//div[@class='oxd-toast-container oxd-toast-container--bottom']")
     private WebElement toast;
     
-//    class="oxd-toast-container oxd-toast-container--bottom"
-
-    
 	public JobPage(WebDriver driver) {
 		this.driver=driver;
 		this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
@@ -92,7 +89,6 @@ public class JobPage {
     {
     	Properties properties = new Properties();
     	FileInputStream file = new FileInputStream("src/main/resources/config.properties");
-    	
     	properties.load(file);
     	String browser = properties.getProperty("browser");
     	return driver.getCurrentUrl().equals(properties.getProperty("jobTitleUrl"));
@@ -101,18 +97,15 @@ public class JobPage {
     public boolean isAddJobTitlePage() throws IOException {
     	Properties properties = new Properties();
     	FileInputStream file = new FileInputStream("src/main/resources/config.properties");
-    	
     	properties.load(file);
     	String browser = properties.getProperty("browser");
     	return driver.getCurrentUrl().equals(properties.getProperty("addJobTitleUrl"));
-    	
     }
     
     public void enterJobTitle(String jobTitle) {	    	
         wait.until(ExpectedConditions.visibilityOf(jobTitleElement));
         jobTitleElement.sendKeys(jobTitle);
     }
-    
     
     public void errorIfExists() {
 		try {
@@ -122,9 +115,7 @@ public class JobPage {
 
 			}
 		} catch (Exception e) {
-
 		}
-
 	}
     
     public void clickSaveButton() {
@@ -140,7 +131,6 @@ public class JobPage {
     
     public static WebElement findExistenceByXPATH(String xpath) {
     	return driver.findElement(By.xpath(xpath));
-    	
     }
 
 	public boolean doesAlreadyExists(String job) {
@@ -155,7 +145,6 @@ public class JobPage {
 			return false ;
 		}
 	}
-	
     public void clickButton(WebElement button) {
     	wait.until(ExpectedConditions.visibilityOf(button));
         button.click();
@@ -165,7 +154,6 @@ public class JobPage {
 	
 	public void delete(String job) {
 		if(doesAlreadyExists(job)) {
-			
 			WebElement deleteButton = findExistenceByXPATH(
 					"//div[contains(@class, 'oxd-table-row--with-border')]/div[contains(@class, 'oxd-padding-cell')]/div[contains(text(), '"+job+"')]/../following-sibling::div//i[contains(@class, 'bi-trash')]");
 			clickButton(deleteButton);
@@ -179,17 +167,14 @@ public class JobPage {
 		}
 		else {
 			System.out.println("Job Not Present");
-			
 		}
 	}
 
 	public void edit(String job) {
 		if(doesAlreadyExists(job)) {
-			
 			WebElement editButton = findExistenceByXPATH(
 					"//div[contains(@class, 'oxd-table-row--with-border')]/div[contains(@class, 'oxd-padding-cell')]/div[contains(text(), '"+job+"')]/../following-sibling::div//i[contains(@class, 'bi-pencil-fill')]");
 			clickButton(editButton);
-
 		}
 		else { 
 			System.out.println("Job Not Present");
@@ -200,28 +185,19 @@ public class JobPage {
 	
 
 	public void editJobTitle(String jobTitleField) {
-		
 		 Actions actions = new Actions(driver);
-
 		 actions.moveToElement(jobTitleElement).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL)
 			.sendKeys(Keys.DELETE).sendKeys(jobTitleField).perform();
 		
 	}
 
 	public void editJobDesc(String jobDescField) {
-		
 		Actions actions = new Actions(driver);
-
 		 actions.moveToElement(jobDescElement).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL)
 			.sendKeys(Keys.DELETE).sendKeys(jobDescField).perform();
-
-		
-		
 	}
 
 	public void uploadSpecification() throws InterruptedException {
-//		wait.until(ExpectedConditions.elementToBeClickable(browse));
-		
 		browse.sendKeys("C:\\Users\\Aditi\\Pictures\\Screenshots\\OrangeHRM.png");	
 	}
 	
@@ -235,15 +211,12 @@ public class JobPage {
 	}
 
 	public void editNote(String noteField) {
-		
 		Actions actions = new Actions(driver);
-
 		 actions.moveToElement(noteElement).click().keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL)
 			.sendKeys(Keys.DELETE).sendKeys(noteField).perform();
 	}
 
 	public boolean checkAdded(String job) throws InterruptedException {
-		
 		driver.get(driver.getCurrentUrl());
 		Thread.sleep(5000);
 		try {
@@ -272,17 +245,8 @@ public class JobPage {
 			return true;
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-    
 }
+
+
+
+

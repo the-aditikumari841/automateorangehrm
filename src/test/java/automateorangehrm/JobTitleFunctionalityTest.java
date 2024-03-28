@@ -45,10 +45,7 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         else {
         	System.out.println("Job Not added");
         }
-        
     }
-	
-	//wait.until(ExpectedConditions.presenceOfElementLoacatedBy(findBy));  
 	
 	
 	@Test(priority = 2)
@@ -147,21 +144,6 @@ public class JobTitleFunctionalityTest extends supportBrowser {
         else {
         	System.out.println("Job Title not Deleted");
         }
-		
 	}
-	
 }
-
-
-
-
-
-
-
-
-//wait.until(ExpectedConditions.presenceOfElementLoacatedBy(findBy));    
-
-
-
-
 
